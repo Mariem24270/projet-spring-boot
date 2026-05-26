@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter Don</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Ajouter un Don</h2>
+
+<form id="donForm">
+    <input type="text" id="titre" placeholder="Titre"><br><br>
+    <input type="text" id="description" placeholder="Description"><br><br>
+
+    <select id="typeDon">
+        <option value="MATERIEL">MATERIEL</option>
+        <option value="ARGENT">ARGENT</option>
+    </select><br><br>
+
+    <input type="number" id="montant" placeholder="Montant"><br><br>
+
+    <button type="submit">Ajouter</button>
+</form>
+
+<script>
+document.getElementById("donForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    fetch("http://localhost:8080/api/dons", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            titre: titre.value,
+            description: description.value,
+            typeDon: typeDon.value,
+            montant: montant.value,
+            statut: "EN_ATTENTE"
+        })
+    })
+    .then(() => {
+        alert("Don ajouté !");
+        window.location.href = "liste.html";
+    });
+});
+</script>
+
+</body>
+</html>
