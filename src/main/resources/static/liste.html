@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Liste des dons</title>
+    <title>Liste Dons</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <h2>Liste des Dons</h2>
@@ -27,6 +28,7 @@ fetch("http://localhost:8080/api/dons")
 .then(res => res.json())
 .then(data => {
     let table = document.getElementById("table");
+    table.innerHTML = "";
 
     data.forEach(d => {
         table.innerHTML += `

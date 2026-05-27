@@ -11,4 +11,7 @@ public interface DonRepository extends JpaRepository<Don, Long> {
     List<Don> findByTypeDon(String typeDon);
 
     List<Don> findByStatut(StatutDon statut);
+
+    // 🔥 AJOUT OBLIGATOIRE
+    List<Don> findByAssociation_Id(Long id);
 }

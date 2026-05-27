@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Associations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Liste Associations</h2>
+
+<button onclick="load()">Charger</button>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+
+    <tbody id="table"></tbody>
+</table>
+
+<script>
+function load(){
+    fetch("http://localhost:8080/api/associations")
+    .then(r => r.json())
+    .then(data => {
+        let t = document.getElementById("table");
+        t.innerHTML = "";
+
+        data.forEach(a => {
+            t.innerHTML += `
+                <tr>
+                    <td>${a.id}</td>
+                    <td>${a.nom}</td>
+                    <td>${a.email}</td>
+                    <td>${a.statut}</td>
+                </tr>
+            `;
+        });
+    });
+}
+</script>
+
+</body>
+</html>
