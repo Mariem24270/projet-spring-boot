@@ -1,9 +1,7 @@
 package com.donasso.gestion_dons.security;
 
-
-
-import com.donasso.gestion_dons.entity.Don;
-import com.donasso.gestion_dons.repository.DonRepository;
+import com.donasso.gestion_dons.entity.User;
+import com.donasso.gestion_dons.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,15 +17,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) 
+    public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        
-        // البحث عن المستخدم بالإيميل في قاعدة البيانات
+
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> 
+                .orElseThrow(() ->
                     new UsernameNotFoundException("Utilisateur non trouvé: " + email));
 
-        // إعطاءه صلاحياته حسب الـ role
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
