@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Associations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Validation Associations</h2>
+
+<button onclick="load()">Charger</button>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Statut</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="table"></tbody>
+</table>
+
+<script>
+function load(){
+    fetch("http://localhost:8080/api/associations")
+    .then(r => r.json())
+    .then(data => {
+        let t = document.getElementById("table");
+        t.innerHTML = "";
+
+        data.forEach(a => {
+            t.innerHTML += `
+                <tr>
+                    <td>${a.id}</td>
+                    <td>${a.nom}</td>
+                    <td>${a.statut}</td>
+                    <td>
+                        <button onclick="valider(${a.id}, true)">✔ Accepter</button>
+                        <button onclick="valider(${a.id}, false)">✖ Refuser</button>
+                    </td>
+                </tr>
+            `;
+        });
+    });
+}
+
+function valider(id, ok){
+    fetch("http://localhost:8080/api/associations/" + id + "/validation?accepter=" + ok,
+    { method: "PATCH" })
+    .then(() => load());
+}
+</script>
+
+</body>
+</html>

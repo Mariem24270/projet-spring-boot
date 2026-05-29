@@ -15,33 +15,32 @@ public class DonService {
 
     // Ajouter Don
     public Don ajouterDon(Don don) {
-
         don.setStatut(StatutDon.EN_ATTENTE);
-
         return donRepository.save(don);
     }
 
-    // Afficher tous dons
+    // Tous les dons
     public List<Don> getAllDons() {
-
         return donRepository.findAll();
     }
 
-    // Filtrer type
+    // Filtrer par type
     public List<Don> getByType(String type) {
-
         return donRepository.findByTypeDon(type);
     }
 
-    // Filtrer statut
+    // Filtrer par statut
     public List<Don> getByStatut(StatutDon statut) {
-
         return donRepository.findByStatut(statut);
     }
 
     // Supprimer don
     public void deleteDon(Long id) {
-
         donRepository.deleteById(id);
+    }
+
+    // 🔥 DONS PAR ASSOCIATION (corrigé)
+    public List<Don> getByAssociation(Long id) {
+        return donRepository.findByAssociation_Id(id);
     }
 }
